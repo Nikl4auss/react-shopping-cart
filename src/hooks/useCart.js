@@ -8,5 +8,8 @@ export function useCart() {
         throw new Error("useCart must be used within a CartProvider")
     }
 
-    return context
+    function checkProductIsInCart(product) {
+        return context.cart.some(cartProduct => cartProduct.id === product.id)
+    }
+    return { ...context, checkProductIsInCart }
 }
