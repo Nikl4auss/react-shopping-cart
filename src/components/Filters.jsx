@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useId, useState } from "react"
+import { useId } from "react"
 import "./Filters.css"
+import { useFilters } from "../hooks/useFilters"
 
-export function Filters({ changeFilters }) {
-    const [minPrice, setMinPrice] = useState(0)
+export function Filters() {
+    const {filters ,setFilters} = useFilters()
     const minPriceFilterId = useId()
     const categoryFilterId = useId()
 
 
     function handleChangeMinPrice (event) {
-        setMinPrice(event.target.value)
-        changeFilters(prevState => ({
+        setFilters(prevState => ({
             ...prevState,
             minPrice: event.target.value
 
@@ -18,7 +18,7 @@ export function Filters({ changeFilters }) {
     }
 
     function handleChangeCategry (event) {
-        changeFilters(prevState => ({
+        setFilters(prevState => ({
             ...prevState,
             category: event.target.value
         }))
@@ -35,13 +35,14 @@ export function Filters({ changeFilters }) {
                     min="0"
                     max="1000"
                     onChange={handleChangeMinPrice}
+                    value={filters.minPrice}
                 />
-                <span>${minPrice}</span>
+                <span>${filters.minPrice}</span>
             </div>
 
             <div>
                 <label htmlFor={categoryFilterId}>
-                    <select name="category" id={categoryFilterId} onChange={handleChangeCategry}>
+                    <select name="category" id={categoryFilterId} onChange={handleChangeCategry} defaultValue={filters.category}>
                         <option value="all">Todos</option>
                         <option value="laptops">Portatiles</option>
                         <option value="smartphones">Celulares</option>
