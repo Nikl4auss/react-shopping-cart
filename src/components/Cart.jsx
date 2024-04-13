@@ -14,20 +14,29 @@ export function Cart() {
       </label>
       <input type="checkbox" id={cartCheckboxId} hidden />
       <aside className="cart">
-        <ul>
-          {cart.map(product => (
-            <CartItem
-              key={product.id}
-              product={product}
-              addToCart={() => addToCart(product)}
-              removeFromCart={() => removeFromCart(product)}
-            />
-          ))
-          }
-        </ul>
-        <button onClick={clearCart}>
-          <ClearCartIcon />
-        </button>
+        {cart.length > 0
+          ? (
+            <>
+              <ul>
+                {cart.map(product => (
+                  <CartItem
+                    key={product.id}
+                    product={product}
+                    addToCart={() => addToCart(product)}
+                    removeFromCart={() => removeFromCart(product)}
+                  />
+                ))
+                }
+              </ul>
+
+              <button onClick={clearCart}>
+                <ClearCartIcon />
+              </button>
+            </>
+
+          )
+          : <small>Tu carrito esta vacio, añade algo</small>
+        }
       </aside >
 
     </>
